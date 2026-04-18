@@ -56,7 +56,7 @@
 	<meta name="msapplication-TileImage" content="https://zeph.com.br/wp-content/uploads/2023/12/cropped-LOGO-1-1-270x270.png" />
 	<style id="wp-custom-css">html,body{overflow-x:hidden !important;}p:last-child{margin-bottom:0px;}body::-webkit-scrollbar{width:12px;}body::-webkit-scrollbar-track{background:#000000;}body::-webkit-scrollbar-thumb{background-image:linear-gradient(0deg,white,white);border-radius:20px;border:3px solid #000000;}</style>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-	<!-- CSS para ajuste de botões enormes -->
+	<!-- CSS para ajuste de botões enormes e proteção de seleção -->
 	<style>
 		/* Reduz tamanho dos botões Get started e formulário */
 		.botao .elementor-button,
@@ -71,6 +71,18 @@
 		.elementor-element-f48e6ca .elementor-button {
 			padding: 8px 20px !important;
 			font-size: 0.9rem !important;
+		}
+		/* Proteção adicional: desabilita seleção de texto */
+		body {
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+		/* Permite seleção apenas em campos de formulário */
+		input, textarea, select {
+			-webkit-user-select: text !important;
+			user-select: text !important;
 		}
 	</style>
 </head>
@@ -462,19 +474,19 @@ document.addEventListener('DOMContentLoaded', function() {
 			</div>
 	<div class="elementor-element elementor-element-947a210 scroll-top e-flex e-con-boxed e-con e-child" data-id="947a210" data-element_type="container" data-e-type="container">
 				<div class="e-con-inner">
-			<div class="elementor-element elementor-element-fd3c61a elementor-widget elementor-widget-video" data-id="fd3c61a" data-element_type="widget" data-e-type="widget" data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/www.youtube.com\/watch?v=UC3DDpJgAQE&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;controls&quot;:&quot;yes&quot;}" data-widget_type="video.default">
+			<div class="elementor-element elementor-element-fd3c61a elementor-widget elementor-widget-video" data-id="fd3c61a" data-element_type="widget" data-e-type="widget" data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/www.youtube.com\/shorts\/PCepeF8yqPU&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;controls&quot;:&quot;yes&quot;}" data-widget_type="video.default">
 			<div class="elementor-widget-container">
 					<div class="elementor-wrapper elementor-open-inline">
 			<div class="elementor-video"></div>		</div>
 					</div>
 			</div>
-			<div class="elementor-element elementor-element-d1bb536 elementor-widget elementor-widget-video" data-id="d1bb536" data-element_type="widget" data-e-type="widget" data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/www.youtube.com\/watch?v=pZ_dgRaZ6Cs&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;controls&quot;:&quot;yes&quot;}" data-widget_type="video.default">
+			<div class="elementor-element elementor-element-d1bb536 elementor-widget elementor-widget-video" data-id="d1bb536" data-element_type="widget" data-e-type="widget" data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/www.youtube.com\/shorts\/PM67gcq4iEk&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;controls&quot;:&quot;yes&quot;}" data-widget_type="video.default">
 			<div class="elementor-widget-container">
 					<div class="elementor-wrapper elementor-open-inline">
 			<div class="elementor-video"></div>		</div>
 					</div>
 			</div>
-			<div class="elementor-element elementor-element-93b47f6 elementor-widget elementor-widget-video" data-id="93b47f6" data-element_type="widget" data-e-type="widget" data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/youtu.be\/uDH--GNdRHs&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;controls&quot;:&quot;yes&quot;}" data-widget_type="video.default">
+			<div class="elementor-element elementor-element-93b47f6 elementor-widget elementor-widget-video" data-id="93b47f6" data-element_type="widget" data-e-type="widget" data-settings="{&quot;youtube_url&quot;:&quot;https:\/\/www.youtube.com\/shorts\/jrRLCo79GVU&quot;,&quot;video_type&quot;:&quot;youtube&quot;,&quot;controls&quot;:&quot;yes&quot;}" data-widget_type="video.default">
 			<div class="elementor-widget-container">
 					<div class="elementor-wrapper elementor-open-inline">
 			<div class="elementor-video"></div>		</div>
@@ -1031,6 +1043,93 @@ jQuery(document).ready(function($) {
 		});
 	});
 	</script>
+
+	<!-- ==================== PROTEÇÃO ANTI-CÓPIA / ANTI-DEVTOOLS ==================== -->
+	<script>
+		(function() {
+			"use strict";
+
+			// 1. Desabilitar menu de contexto (botão direito)
+			document.addEventListener('contextmenu', e => e.preventDefault());
+
+			// 2. Desabilitar seleção de texto (já feito via CSS, mas reforçado)
+			document.addEventListener('selectstart', e => e.preventDefault());
+
+			// 3. Bloquear teclas de desenvolvedor (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.)
+			document.addEventListener('keydown', function(e) {
+				// F12
+				if (e.keyCode === 123) {
+					e.preventDefault();
+					return false;
+				}
+				// Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+U / Ctrl+S
+				if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
+					e.preventDefault();
+					return false;
+				}
+				if (e.ctrlKey && e.keyCode === 85) { // Ctrl+U
+					e.preventDefault();
+					return false;
+				}
+				if (e.ctrlKey && e.keyCode === 83) { // Ctrl+S
+					e.preventDefault();
+					return false;
+				}
+				// Mac: Cmd+Option+I / Cmd+Option+J / Cmd+U / Cmd+S
+				if (e.metaKey && e.altKey && (e.keyCode === 73 || e.keyCode === 74)) {
+					e.preventDefault();
+					return false;
+				}
+				if (e.metaKey && e.keyCode === 85) { // Cmd+U
+					e.preventDefault();
+					return false;
+				}
+				if (e.metaKey && e.keyCode === 83) { // Cmd+S
+					e.preventDefault();
+					return false;
+				}
+			});
+
+			// 4. Detecção de DevTools aberta (via diferença de tempo ou tamanho da janela)
+			let devtoolsOpen = false;
+			const threshold = 160;
+			const checkDevTools = () => {
+				const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+				const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+				if (widthThreshold || heightThreshold) {
+					if (!devtoolsOpen) {
+						devtoolsOpen = true;
+						// Ação: redirecionar ou limpar conteúdo (medida extrema)
+						// Aqui optamos por recarregar a página para dificultar inspeção
+						// window.location.reload();
+						// Ou exibir uma mensagem bloqueadora:
+						document.body.innerHTML = '<div style="color:white; background:#0A0A0F; height:100vh; display:flex; align-items:center; justify-content:center; font-family:sans-serif;">🔒 Acesso restrito. Ferramentas de desenvolvedor detectadas.</div>';
+						clearInterval(devToolsInterval);
+					}
+				} else {
+					devtoolsOpen = false;
+				}
+			};
+			const devToolsInterval = setInterval(checkDevTools, 1000);
+
+			// 5. Limpar console para dificultar debugging
+			setInterval(() => {
+				console.clear();
+				console.log("%c⚠️ Aviso!", "font-size:20px; color:red;");
+				console.log("%cEsta área é protegida. Qualquer tentativa de cópia ou engenharia reversa é proibida.", "font-size:14px;");
+			}, 2000);
+
+			// 6. Detectar abertura do console via atalhos adicionais (Firefox, etc.)
+			window.addEventListener('devtoolschange', e => {
+				if (e.detail.open) {
+					document.body.innerHTML = '<div style="color:white; background:#0A0A0F; height:100vh; display:flex; align-items:center; justify-content:center; font-family:sans-serif;">🔒 Ferramentas de desenvolvedor bloqueadas.</div>';
+				}
+			});
+
+			// 7. Proteção extra: se o usuário tentar salvar a página (Ctrl+S), já bloqueado acima.
+		})();
+	</script>
+	<!-- FIM DAS PROTEÇÕES -->
 
 	<script type="speculationrules">
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/hello-elementor\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
